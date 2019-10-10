@@ -130,9 +130,9 @@ def generateMap(screen):
                 pass
 
 #generate a 3d enviroment by taking the distance of each ray
-def generate3DEnvironment(screen, posX, posY, particleAngle, rayAngle):  
+def generate3DEnvironment(screen, posX, posY):  
     for i, point in enumerate(intersections):
-        pointX, pointY, angle = point
+        pointX, pointY = point
 
         dx = posX - pointX
         dy = posY - pointY
@@ -231,19 +231,14 @@ class ray:
         self.y3 = self.pos.y
         self.x4 = self.dir.x + self.pos.x
         self.y4 = self.dir.y + self.pos.y
-        t = 1
-        u = 1
 
         tt = ((self.x1 - self.x3)*(self.y3 - self.y4)) - ((self.y1 - self.y3)*(self.x3 - self.x4))
         tb = ((self.x1 - self.x2)*(self.y3 - self.y4)) - ((self.y1 - self.y2)*(self.x3 - self.x4))
-        if tt != 0 and tb != 0:
-            t = tt/tb
+        t = tt/tb
         
         ut = ((self.x1 - self.x2)*(self.y1 - self.y3)) - ((self.y1 - self.y2)*(self.x1 - self.x3))
         ub = ((self.x1 - self.x2)*(self.y3 - self.y4)) - ((self.y1 - self.y2)*(self.x3 - self.x4))
-        
-        if tt != 0 and tb != 0:
-            u = -(ut/ub)
+        u = -(ut/ub)
 
         if((t <= 1.0 and t >= 0.0) and u > 0.0):
             return (self.x1 + t * (self.x2 -self.x1), self.y1 + t * (self.y2 - self.y1))
@@ -330,9 +325,9 @@ class partical:
             if(closestX != None and closestY != None):
                 ray.show(closestX, closestY)
                 #if there is an intersection with a wall, add the intersectPoint to the intersection array to be displayed in the 3d-enviornment
-                intersections.append([round(closestX,1), round(closestY,1), ray.getAngle()])
+                intersections.append((round(closestX,1), round(closestY,1)))
         
-        generate3DEnvironment(self.screen, self.posX, self.posY, self.angle, ray.getAngle())
+        generate3DEnvironment(self.screen, self.posX, self.posY)
     
     def rotate(self, dir):
         self.angle += dir
