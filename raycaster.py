@@ -10,7 +10,7 @@ MAPSIZE = 12
 BOXSIZE = HEIGHT/MAPSIZE
 FOV = 90
 
-threeDBlockSize = 600/FOV
+THREEDBLOCKWIDTH = 600/FOV
 
 map =   [
         [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -144,9 +144,9 @@ def generate3DEnvironment(screen, posX, posY):
         margin = (600 - blockHeight) / 2
 
         try:
-            pygame.draw.rect(screen, (255 -percentDist*255, 255-percentDist*255,255- percentDist*255), [600 + i*threeDBlockSize, margin, threeDBlockSize, blockHeight])
+            pygame.draw.rect(screen, (255 -percentDist*255, 255-percentDist*255,255- percentDist*255), [600 + i*THREEDBLOCKWIDTH, margin, THREEDBLOCKWIDTH, blockHeight])
         except TypeError:
-            pygame.draw.rect(screen, (0,0,0), [600 + i*threeDBlockSize, margin, threeDBlockSize, blockHeight])
+            pygame.draw.rect(screen, (0,0,0), [600 + i*THREEDBLOCKWIDTH, margin, THREEDBLOCKWIDTH, blockHeight])
 
     intersections.clear()
 
